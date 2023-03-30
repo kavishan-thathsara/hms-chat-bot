@@ -1,0 +1,38 @@
+{
+    "$schema": "https://json-schema.org/draft/2019-09/schema",
+    "$id": "http://example.com/example.json",
+    "type": "object",
+    "default": {},
+    "title": "Root Schema",
+    "required": [
+        "routes"
+    ],
+    "properties": {
+        "routes": {
+            "type": "object",
+            "default": {},
+            "title": "The routes Schema",
+            "required": [
+                "hostName"
+            ],
+            "properties": {
+                "hostName": {
+                    "type": "string",
+                    "default": "",
+                    "title": "The hostName Schema",
+                    "examples": [
+                        "hms-bot.hsenidmobile.com"
+                    ]
+                }
+            },
+            "examples": [{
+                "hostName": "hms-bot.hsenidmobile.com"
+            }]
+        }
+    },
+    "examples": [{
+        "routes": {
+            "hostName": "hms-bot.hsenidmobile.com"
+        }
+    }]
+}
