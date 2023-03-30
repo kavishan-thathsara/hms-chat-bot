@@ -1,0 +1,67 @@
+---
+# ui-frontend-service
+apiVersion: v1
+kind: Service
+metadata:
+  name: ui-frontend
+  namespace: hms-bot
+  labels:
+    app: ui-frontend
+spec:
+  ports:
+    - port: 80
+      name: ui-frontend
+      targetPort: 8080
+  selector:
+    app: ui-frontend
+
+
+---
+# language-selectoe-service
+apiVersion: v1
+kind: Service
+metadata:
+  name: language-selector-service
+  namespace: hms-bot
+  labels:
+    app: language-selector
+spec:
+  ports:
+    - port: 5000
+      name: hveiw-api
+      targetPort: 5000
+  selector:
+    app: language-selector
+
+
+---
+# english-action-server-service
+apiVersion: v1
+kind: Service
+metadata:
+  name: english-chatbot-service
+  namespace: hms-bot
+spec:
+  selector:
+    app: english-chatbot
+  ports:
+    - port: 5000
+      protocol: TCP
+      targetPort: 5005
+
+
+---
+# sinhala-chatbot-service
+apiVersion: v1
+kind: Service
+metadata:
+  name: sinhala-chatbot-service
+  namespace: hms-bot
+spec:
+  selector:
+    app: sinhala-chatbot
+  ports:
+    - port: 5000
+      protocol: TCP
+      targetPort: 5005
+

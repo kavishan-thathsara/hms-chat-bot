@@ -1,0 +1,104 @@
+---
+# ui-frontend-deployment
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ui-frontend
+  namespace: hms-bot
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ui-frontend
+  template:
+    metadata:
+      labels:
+        app: ui-frontend
+    spec:
+      containers:
+        - name: frontend
+          image: sourcecontrol.hsenidmobile.com:5050/datascience/chatbot/multi-lingual-bot/ui_frontend:latest
+          ports:
+            - containerPort: 8080
+      imagePullSecrets:
+        - name: multi-lingual-bot-secret
+
+
+---
+# language-selector-deployment
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: language-selector
+  namespace: hms-bot
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: language-selector
+  template:
+    metadata:
+      labels:
+        app: language-selector
+    spec:
+      containers:
+        - name: language-selector
+          image: sourcecontrol.hsenidmobile.com:5050/datascience/chatbot/multi-lingual-bot/language_selector_language_selector:latest
+          ports:
+            - containerPort: 5000
+      imagePullSecrets:
+        - name: multi-lingual-bot-secret
+
+
+---
+# english-chatbot-deployment
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: english-chatbot
+  namespace: hms-bot
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: english-chatbot
+  template:
+    metadata:
+      labels:
+        app: english-chatbot
+    spec:
+      containers:
+        - name: english-chatbot
+          image: sourcecontrol.hsenidmobile.com:5050/datascience/chatbot/multi-lingual-bot/english_chatbot_action-server:latest
+          ports:
+            - containerPort: 5005
+          args: ["run", "--model", "./models", "--cors", "--cors", "*", "--enable-api", "--debug", "--credentials", "credentials.yml", "--endpoints", "endpoints.yml"]
+      imagePullSecrets:
+        - name: multi-lingual-bot-secret
+
+
+---
+# sinhala-chatbot-deployment
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sinhala-chatbot
+  namespace: hms-bot
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: sinhala-chatbot
+  template:
+    metadata:
+      labels:
+        app: sinhala-chatbot
+    spec:
+      containers:
+        - name: sinhala-chatbot
+          image: sourcecontrol.hsenidmobile.com:5050/datascience/chatbot/multi-lingual-bot/sinhala_chatbot_rasa:latest
+          ports:
+            - containerPort: 5005
+          args: ["run", "--model", "./models", "--cors", "--cors", "*", "--enable-api", "--debug", "--credentials", "credentials.yml", "--endpoints", "endpoints.yml"]
+      imagePullSecrets:
+        - name: multi-lingual-bot-secret

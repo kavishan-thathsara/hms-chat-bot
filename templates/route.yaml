@@ -1,0 +1,59 @@
+---
+# This is the route for frontend ui
+# route-for-ui-frontend
+kind: Route
+apiVersion: route.openshift.io/v1
+metadata:
+  name: ui-frontend-route
+  namespace: hms-bot
+  labels:
+    app: ui-frontend
+spec:
+  to:
+    kind: Service
+    name: ui-frontend
+  host: {{ .Values.routes.hostName }}
+  path: /
+  port:
+    targetPort: ui-frontend
+
+
+---
+# backend routes
+# route-for-language-selector
+kind: Route
+apiVersion: route.openshift.io/v1
+metadata:
+  name: language-selector-route
+  namespace: hms-bot
+  labels:
+    app: language-selector
+spec:
+  to:
+    kind: Service
+    name: language-selector-service
+  host: {{ .Values.routes.hostName }}
+  path: /chat
+  port:
+    targetPort: hveiw-api
+
+
+---
+# backend route
+# route-for-english-action-server
+kind: Route
+apiVersion: route.openshift.io/v1
+metadata:
+  name: english-action-server
+  namespace: hms-bot
+  labels: {}
+spec:
+  to:
+    kind: Service
+    name: english-chatbot-service
+  host: {{ .Values.routes.hostName }}
+  path: /webhooks
+  port:
+    targetPort: 5005
+
+
